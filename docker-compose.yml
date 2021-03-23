@@ -1,0 +1,15 @@
+version: "3"
+services:
+  pwn:
+    build: .
+    volumes:
+      - ~/ctf:/ctf
+    container_name: pwnbox
+    stdin_open: true
+    tty: true
+    environment:
+      DISPLAY: $DISPLAY
+    cap_add:
+            - SYS_PTRACE
+    security_opt:
+            - seccomp:unconfined
