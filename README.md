@@ -1,14 +1,11 @@
-# pwnbox
-my docker environment for pwn
-
-##1. build
-
+#1. build
 docker-compose build
 
-##2. start
-
+#2. start
 docker-compose up
 
-##3. get shell
+#3. install
+./install.sh
 
-docker exec -it pwnbox /bin/zsh
+#4. run
+pwnbox
