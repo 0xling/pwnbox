@@ -51,6 +51,7 @@ RUN gem install one_gadget seccomp-tools
 
 RUN git clone https://github.com/longld/peda.git ~/peda --depth=1
 RUN git clone https://github.com/scwuaptx/Pwngdb.git ~/Pwngdb --depth=1
+RUN touch /.dockerenv
 RUN git clone https://github.com/pwndbg/pwndbg.git ~/pwndbg --depth=1
 RUN git clone https://github.com/hugsy/gef.git ~/gef --depth=1
 RUN git clone https://github.com/alset0326/peda-arm.git ~/peda-arm --depth=1
