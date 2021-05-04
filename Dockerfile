@@ -76,14 +76,18 @@ RUN cd ~/gdb-peda-pwndbg-gef && cp gdb-peda /usr/bin/gdb-peda && \
 RUN git clone https://gitclone.com/github.com/0xling/patchelf.git ~/patchelf --depth=1 && cd ~/patchelf && \
     ./bootstrap.sh && ./configure && make && make install
 
-RUN pip3 install frida
+#RUN pip3 install frida
+RUN apt install -y libreadline-dev autojump
+RUN pip install pcappy
 
 RUN rm -rf /tmp/* /var/tmp/*
 COPY vimrc /root/.vimrc
-COPY tmux.conf.local /root/.tmux.conf.local
 COPY gdbinit /root/.gdbinit
+COPY tmux.conf.local /root/.tmux.conf.local
+RUN ln -s /usr/local/lib/python2.7/dist-packages/pwnlib/constants ~/constants
 
 RUN echo "eval \$(thefuck --alias)" >> ~/.zshrc
+RUN echo ". /usr/share/autojump/autojump.sh" >> ~/.zshrc
 ENV LANG C.UTF-8
 WORKDIR /ctf
 CMD ["/bin/bash"]

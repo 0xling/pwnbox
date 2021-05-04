@@ -9,8 +9,8 @@ services:
     stdin_open: true
     tty: true
     environment:
-      - http_proxy=http://172.20.0.1:7777
-      - https_proxy=http://172.20.0.1:7777
+      - http_proxy=
+      - https_proxy=
     cap_add:
             - SYS_PTRACE
     security_opt:
