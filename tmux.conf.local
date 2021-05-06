@@ -404,3 +404,4 @@ tmux_conf_update_plugins_on_reload=true
 #
 # "$@"
 # # /!\ do not remove the previous line
+set -g default-shell /bin/zsh
