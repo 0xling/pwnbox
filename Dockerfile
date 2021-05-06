@@ -85,6 +85,7 @@ COPY vimrc /root/.vimrc
 COPY gdbinit /root/.gdbinit
 COPY tmux.conf.local /root/.tmux.conf.local
 COPY pwn_template.py /root/pwn_template.py
+COPY mypatchelf.py /root/mypatchelf.py
 RUN ln -s /usr/local/lib/python2.7/dist-packages/pwnlib/constants ~/constants
 
 RUN echo "eval \$(thefuck --alias)" >> ~/.zshrc
