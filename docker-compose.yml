@@ -5,6 +5,7 @@ services:
     restart: always
     volumes:
       - ~/ctf:/ctf
+      - ~/local:/local
     container_name: pwnbox
     stdin_open: true
     tty: true

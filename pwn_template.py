@@ -1,11 +1,10 @@
 from pwn import *
 import time
+from termcolor import colored
 
 context.log_level = 'debug'
 context.arch = 'amd64'
-context.terminal = ['tmux', 'splitw', '-h']
-
-elf_path = './bank'
+elf_path = './pwn'
 # p = process(elf_path, aslr = False, env={'LD_PRELOAD': './libc.so.6'})
 # p = process(elf_path, env={'LD_PRELOAD': './libc.so.6'})
 # p = process(elf_path, aslr=False)
@@ -41,7 +40,12 @@ def raddr(a=6):
 
 
 def gdb_hint(cmd=None):
-    gdb.attach(p, cmd)
+    if isinstance(p, process):
+        s = 'attach %d' %p.pid
+        if cmd:
+            s += '\n' + cmd
+        os.system('lterm -s 172.17.0.1 -e "%s"' %codecs.encode(s, 'hex'))
+        raw_input(colored(s.replace('\n', ';'), 'magenta'))
 
 
 def calc_leak(leak_value, func_name):
@@ -55,7 +59,7 @@ def exp():
     global p
     p = process(elf_path, aslr=False)
     #p = remote('81.70.195.166', 10000)
-    gdb_hint()
+    gdb_hint('b free\nb malloc')
     p.interactive()
 
 exp()

@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import json
+import multiprocessing
+import struct
+from socketserver import TCPServer, StreamRequestHandler
+import pyperclip
+import codecs
+
+class NotificationHandler(StreamRequestHandler):
+    def handle(self):
+        length = struct.unpack('<I', self.request.recv(4))[0]
+        json_content = self.request.recv(length)
+        content = json.loads(json_content)
+        cmd = content['exec']
+        pyperclip.copy(codecs.decode(cmd, 'hex'))
+
+class ServerProcess(multiprocessing.Process):
+    def __init__(self, port, *args, **kwargs):
+        super(ServerProcess, self).__init__(*args, **kwargs)
+        self.port = port
+
+    def run(self):
+        self.server = TCPServer(('', self.port), NotificationHandler)
+        self.server.serve_forever()
+
+if __name__ == '__main__':
+    server = ServerProcess(port=15111)
+    server.run()
+

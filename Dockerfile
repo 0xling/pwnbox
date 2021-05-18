@@ -9,7 +9,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN  apt-get clean
 
 # Apt packages
-RUN dpkg --add-architecture i386  && apt update
+RUN dpkg --add-architecture i386  
+RUN apt update
 
 RUN apt install -y apt-utils git nasm python build-essential python-dev \
         python-pip python-setuptools python3-dev python3-pip \
@@ -31,7 +32,10 @@ RUN apt install -y apt-utils git nasm python build-essential python-dev \
         binutils-mipsel-linux-gnu \
         binutils-powerpc-linux-gnu \
         binutils-powerpc64-linux-gnu \
-        tmux ipython3
+        tmux ipython3 \
+        qemu-system \
+        musl-tools libmpc-dev \
+        libreadline-dev autojump psmisc
 
 #RUN pip install --upgrade "pip < 21.0"
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U pip
@@ -39,11 +43,11 @@ RUN pip config set global.index-url http://mirrors.aliyun.com/pypi/simple
 RUN pip config set install.trusted-host mirrors.aliyun.com
 
 RUN pip install pwntools --ignore-installed
-RUN pip install zio uncompyle6 termcolor ropgadget keystone-engine pycryptodome
+RUN pip install zio uncompyle6 termcolor ropgadget keystone-engine pycryptodome gmpy2 ropper pcappy
 #RUN pip3 install --upgrade "pip < 21.0"
 RUN pip3 install --upgrade pip
 RUN pip3 install cryptography==2.5
-RUN pip3 install thefuck zio setuptools-rust keystone-engine pycryptodome
+RUN pip3 install thefuck zio setuptools-rust keystone-engine pycryptodome gmpy2 owiener
 RUN pip3 install pwntools --ignore-installed
 
 RUN gem sources --remove https://rubygems.org/ && gem sources -a http://gems.ruby-china.com/
@@ -77,16 +81,18 @@ RUN git clone https://gitclone.com/github.com/0xling/patchelf.git ~/patchelf --d
     ./bootstrap.sh && ./configure && make && make install
 
 #RUN pip3 install frida
-RUN apt install -y libreadline-dev autojump psmisc
-RUN pip install pcappy
 
 RUN rm -rf /tmp/* /var/tmp/*
 COPY vimrc /root/.vimrc
 COPY gdbinit /root/.gdbinit
 COPY tmux.conf.local /root/.tmux.conf.local
 COPY pwn_template.py /root/pwn_template.py
-COPY mypatchelf.py /root/mypatchelf.py
+COPY mypatchelf.py /usr/local/bin/mypatchelf 
+COPY lterm.py /usr/local/bin/lterm 
+RUN chmod +x /usr/local/bin/mypatchelf && chmod +x /usr/local/bin/lterm
 RUN ln -s /usr/local/lib/python2.7/dist-packages/pwnlib/constants ~/constants
+RUN apt update 
+RUN apt install -y ncompress
 
 RUN echo "eval \$(thefuck --alias)" >> ~/.zshrc
 RUN echo ". /usr/share/autojump/autojump.sh" >> ~/.zshrc

@@ -5,7 +5,7 @@ source ~/Pwngdb/angelheap/gdbinit.py
 #end
 #document init-peda
 #Initializes the PEDA (Python Exploit Development Assistant for GDB) framework
-end
+#end
 
 define init-peda-arm
 source ~/peda-arm/peda-arm.py
