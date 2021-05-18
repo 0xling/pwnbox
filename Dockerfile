@@ -77,7 +77,7 @@ RUN cd ~/gdb-peda-pwndbg-gef && cp gdb-peda /usr/bin/gdb-peda && \
     cp gdb-pwndbg /usr/bin/gdb-pwndbg && \
     cp gdb-gef /usr/bin/gdb-gef && chmod +x /usr/bin/gdb-*
 
-RUN git clone https://gitclone.com/github.com/0xling/patchelf.git ~/patchelf --depth=1 && cd ~/patchelf && \
+RUN git clone https://github.com/0xling/patchelf.git ~/patchelf --depth=1 && cd ~/patchelf && \
     ./bootstrap.sh && ./configure && make && make install
 
 #RUN pip3 install frida
