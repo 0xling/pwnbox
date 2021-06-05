@@ -25,7 +25,7 @@ def main():
     msg = {
         'exec': cmd,
     }
-    msg_json = json.dumps(msg)
+    msg_json = json.dumps(msg).encode()
     length = len(msg_json)
     protocol_msg = pack(length) + msg_json
 

@@ -1,11 +1,11 @@
-#define init-peda
+define init-peda
 source ~/peda/peda.py
 source ~/Pwngdb/pwngdb.py
 source ~/Pwngdb/angelheap/gdbinit.py
-#end
-#document init-peda
-#Initializes the PEDA (Python Exploit Development Assistant for GDB) framework
-#end
+end
+document init-peda
+Initializes the PEDA (Python Exploit Development Assistant for GDB) framework
+end
 
 define init-peda-arm
 source ~/peda-arm/peda-arm.py
